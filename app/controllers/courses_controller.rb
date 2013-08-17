@@ -22,9 +22,8 @@ class CoursesController < ApplicationController
   end
 
   def excute_code
-    code = params["code"].split('\n').last
+    code = params["code"].split(/\n/).last
     result = excute_result(code)
-    p result
     respond_to do |format|
       format.html
       format.json { render json: { success: true, result: result } }
@@ -35,9 +34,10 @@ class CoursesController < ApplicationController
     begin 
       result = eval(code)
     rescue Exception => e  
-      result = e
-      return result.to_s
+      result = e.to_s
+      exit 1
+    ensure
+      return result
     end
-    return result
   end
 end
