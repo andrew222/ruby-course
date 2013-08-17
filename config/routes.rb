@@ -2,13 +2,12 @@ Login::Application.routes.draw do
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
-  root :to => "users#new"
+  root :to => "sessions#new"
   resources :users
   resources :sessions
 
   resources :courses
-
-  match "/ruby_code_input_test.:format" => "courses#ruby_code_input_test", :as => "ruby_code_input_test"
+  match "/welcome" => "users#welcome", :as => "welcome"
   match "/excute_code" => "courses#excute_code", :as => "excute_code"
   # The priority is based upon order of creation:
   # first created -> highest priority.

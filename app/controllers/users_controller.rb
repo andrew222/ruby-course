@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_filter :require_user, :only => [:new, :create]
   def new
   	@user = User.new()
   end
@@ -10,5 +11,9 @@ class UsersController < ApplicationController
   	else
   		render :new
   	end
+  end
+
+  def welcome
+    
   end
 end

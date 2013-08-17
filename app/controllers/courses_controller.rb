@@ -4,7 +4,6 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json @courses
     end
   end
 
@@ -13,12 +12,6 @@ class CoursesController < ApplicationController
   end
 
   def create
-  end
-
-  def ruby_code_input_test
-    respond_to do |format|
-      format.html
-    end
   end
 
   def excute_code
@@ -35,7 +28,6 @@ class CoursesController < ApplicationController
       result = eval(code)
     rescue Exception => e  
       result = e.to_s
-      exit 1
     ensure
       return result
     end
