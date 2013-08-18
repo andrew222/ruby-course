@@ -17,23 +17,27 @@
 			if(event.keyCode == 13 ){
 				window.obj = obj;
 				var me = obj,
-						last_line;
-				$.ajax({
-					type: "POST",
-		      url: "/excute_code.json",
-		      data: { code: me.doc.getValue() },
-		      dataType: "json",
-		      beforeSend: function(){
-		      	last_line = obj.doc.lastLine();
-		      	console.log("before send data");
-		      },
-		      success: function(data) {
-		        me.doc.setLine(last_line, data.result.toString() + "\n")
-		      },
-					error: function(error){
-						console.log(error);
-					}
-				})
+						last_line = obj.lastLine();
+				if(me.getLine(last_line - 1) == 'clear'){
+					clear_text_area(me);
+				}
+				else{
+					$.ajax({
+						type: "POST",
+			      url: "/excute_code.json",
+			      data: { code: me.doc.getValue() },
+			      dataType: "json",
+			      beforeSend: function(){
+			      	console.log("before send data");
+			      },
+			      success: function(data) {
+			        me.setLine(last_line, data.result.toString() + "\n")
+			      },
+						error: function(error){
+							console.log(error);
+						}
+					})
+				}
 			}
 		})
 	});
