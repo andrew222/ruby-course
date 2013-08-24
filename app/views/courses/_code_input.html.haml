@@ -20,8 +20,7 @@
 						last_line = obj.lastLine();
 				if(me.getLine(last_line - 1) == 'clear'){
 					clear_text_area(me);
-				}
-				else{
+				}else{
 					$.ajax({
 						type: "POST",
 			      url: "/excute_code.json",

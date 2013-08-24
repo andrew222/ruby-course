@@ -1,4 +1,7 @@
 class CoursesController < ApplicationController
+
+  FILE_NAME = "tmp/ruby_code.rb"
+  
   def index
     @cousrs = Course.all
 
@@ -15,12 +18,11 @@ class CoursesController < ApplicationController
   end
 
   def excute_code
-    file_name = "tmp/ruby_code.rb"
     code = params["code"].split(/\n/).last
-    Course.write_ruby_code_to_file(file_name, code)
-    if File.exist?(file_name)
-      codes = File.open(file_name).read
-      result = excute_result(codes)
+    Course.write_ruby_code_to_file(FILE_NAME, code)
+    if File.exist?(FILE_NAME)
+      codes = File.open(FILE_NAME).read
+      result = excute_result(codes, code)
     else
       result = ""
     end
@@ -30,10 +32,11 @@ class CoursesController < ApplicationController
     end
   end
 
-  def excute_result(code)
+  def excute_result(codes, code)
     begin 
-      result = eval(code)
+      result = eval(codes)
     rescue Exception => e  
+      Course.rollback_if_exception(FILE_NAME, code)
       result = e.to_s
     ensure
       return result
