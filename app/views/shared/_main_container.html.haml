@@ -1,0 +1,7 @@
+.row
+  .alert.alert-danger
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+    %strong alert
+    - flash.each do |name, msg|
+      = content_tag :div, msg, :id => "flash_#{name}"
+  = yield

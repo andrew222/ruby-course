@@ -1,4 +1,7 @@
-%h2
-	= @course.name
-.code_input
-	= render "code_input"
+.span4
+  = render partial: "tip_content"
+.span8
+  %h2
+    = @course.name
+  .code_input
+    = render "code_input"

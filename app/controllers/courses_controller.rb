@@ -47,7 +47,7 @@ class CoursesController < ApplicationController
         case match_data[1]
         when "puts"
           result = match_data[2] + "\n" + "=> nil"
-        when "print"
+        when "print", "printf"
           result = match_data[2] + "=> nil"
         end
       end

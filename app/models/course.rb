@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
 	attr_accessible :name, :comment
+	has_many :codes, dependent: :destroy
   def test
   end
 

@@ -38,20 +38,4 @@
             or
             \#{link_to "log in", log_in_path}
     .container
-      .row
-        .span4
-          .well.sidebar-nav
-            %h3 Sidebar
-            %ul.nav.nav-list
-              %li.nav-header Sidebar
-              %li
-                = link_to "Link1", "/path1"
-              %li
-                = link_to "Link2", "/path2"
-        .span8
-          .alert.alert-danger
-            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
-            %strong alert
-            - flash.each do |name, msg|
-              = content_tag :div, msg, :id => "flash_#{name}"
-          = yield
+      = render partial: 'shared/main_container'

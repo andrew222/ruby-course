@@ -11,7 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130809063858) do
+ActiveRecord::Schema.define(:version => 20130828105630) do
+
+# Could not dump table "codes" because of following StandardError
+#   Unknown type 'bollean' for column 'finished'
 
   create_table "courses", :force => true do |t|
     t.string   "name"
