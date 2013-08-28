@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Course.create({name: 'Output in Ruby', comment: '"puts" writes to the screen with a carriage return at the end.
+"print" does the same thing without the carriage return.
+"printf" formats variables like in C and Java 5.'})

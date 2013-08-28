@@ -1,2 +1,9 @@
-.code_input
-	= render "code_input"
+%table.table
+	- @courses.each do |course|
+		%tr
+			%td
+				= course.name
+			%td 
+				= course.comment
+			%td 
+				= link_to 'Start', course, class: "btn btn-primary btn-lg"

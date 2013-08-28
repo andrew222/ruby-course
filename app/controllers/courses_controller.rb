@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
   FILE_NAME = "tmp/ruby_code.rb"
   
   def index
-    @cousrs = Course.all
+    @courses = Course.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,6 +15,13 @@ class CoursesController < ApplicationController
   end
 
   def create
+  end
+
+  def show
+    @course = Course.find(params[:id])
+    respond_to do |format|
+      format.html # show.html.haml
+    end
   end
 
   def excute_code
@@ -35,6 +42,15 @@ class CoursesController < ApplicationController
   def excute_result(codes, code)
     begin 
       result = eval(codes)
+      if result.nil?
+        match_data = code.match(/^(\w+?)\s+[\'|\"](.*)[\'|\"]/)
+        case match_data[1]
+        when "puts"
+          result = match_data[2] + "\n" + "=> nil"
+        when "print"
+          result = match_data[2] + "=> nil"
+        end
+      end
     rescue Exception => e  
       Course.rollback_if_exception(FILE_NAME, code)
       result = e.to_s

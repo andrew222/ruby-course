@@ -29,6 +29,8 @@ end
 
 group :development do
 	gem 'pry-rails'
+	gem 'pry-coolline'
+  gem 'awesome_print'
 end
 
 gem 'jquery-rails'
