@@ -1,4 +1,6 @@
 .well.sidebar-nav
   %h3 Tips
   = markdown_to_html(@course.comment).html_safe
+  - @course.codes.each do |code|
+    = markdown_to_html(code.content).html_safe
       
