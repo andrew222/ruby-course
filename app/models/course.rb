@@ -1,8 +1,6 @@
 class Course < ActiveRecord::Base
 	attr_accessible :name, :comment
 	has_many :codes, dependent: :destroy
-  def test
-  end
 
   def self.write_ruby_code_to_file(file_name, code)
   	if code == "clear"

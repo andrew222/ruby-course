@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def create
   	@user = User.new(params[:user])
   	if @user.save
-  		redirect_to courses_url, :notice => 'log in successed'
+  		redirect_to log_in_path, :notice => 'create a new user by Email: ' + @user.email
   	else
   		render :new
   	end

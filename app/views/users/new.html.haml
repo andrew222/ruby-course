@@ -1,17 +1,10 @@
+- if @user.errors.any?
+  .alert.alert-error
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+    = display_error_msg(@user)
 %h1 Sign Up
-= form_for @user do |f|
-  - if @user.errors.any?
-    .error_messages
-      %h2 Form is invalid
-      %ul
-        - for message in @user.errors.full_messages
-          %li= message
-  %p
-    = f.label :email
-    %br/
-    = f.text_field :email
-  %p
-    = f.label :password
-    %br/
-    = f.password_field :password
-  %p.button= f.submit
+= simple_form_for @user do |f|
+  = f.input :email, label: "Email", placeholder: "user@domain.com", error: false
+  = f.input :password, label: "Password", error: false
+  = f.input :password_confirmation, label: "Password Confirmation", error: false
+  = f.button :submit, "Sign Up", class: "btn btn-primary"

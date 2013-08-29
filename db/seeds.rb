@@ -17,8 +17,9 @@ course = Course.create({name: 'Output in Ruby', comment: '* "puts" writes to the
 course.codes.create({content: '`puts "hi ruby"`', finished: false})
 course.codes.create({content: '`print "hi ruby"`', finished: false})
 
-course = Course.create({name: "Functions", comment: "1.Our first Ruby function"})
+course = Course.create({name: "Functions", comment: "1.Our first Ruby function
+> 'def' starts the definition of a method, and 'end' ends it - no cute little curly braces. "})
 course.codes.create({content: "`def welcome(name)`", finished: false, comment: ""})
-course.codes.create({content: "`puts 'howdy'`", finished: false, comment: "# inside double quotes, #{ } will evaluate the variable"})
+course.codes.create({content: "> `puts 'welcome' + name`", finished: false, comment: "# inside double quotes, #{ } will evaluate the variable"})
 course.codes.create({content: "`end`", finished: false, comment: ""})
-course.codes.create({content: "`welcome('nana')`", finished: false, comment: "# traditional parens"})
+course.codes.create({content: "`welcome('andrew')`", finished: false, comment: "# traditional parens"})

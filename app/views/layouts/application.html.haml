@@ -24,18 +24,25 @@
     = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
     / For all other devices
     / Size should be 32 x 32 pixels
-    = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
     = javascript_include_tag "application"
   %body
     .navbar
       .navbar-inner
-        .container.navbar-right
+        .container
+          %ul.nav.nav-pills
+            %li
+              = link_to "Home", root_path, class: "active"
+            - if current_user
+              %li
+                = link_to "Logged in as #{current_user.email}.", "#"
+              %li
+                = link_to "Log out", log_out_path
+            - else
+              %li
+                = link_to "Sign up", sign_up_path
+              %li
+                = link_to "log in", log_in_path
           - if current_user
-            Logged in as #{current_user.email}.
-            \#{link_to "Log out", log_out_path}
-          - else
-            = link_to "Sign up", sign_up_path
-            or
-            \#{link_to "log in", log_in_path}
+            .user_info 
     .container
       = render partial: 'shared/main_container'
