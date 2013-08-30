@@ -11,31 +11,36 @@
 			lineNumbers: true,
 			matchBrackets: true,
 			autofocus: true,
+			onKeyEvent: function(editor, event){
+		    var event_type = event.type;
+		    if(event.type == "keydown" && event.keyCode == 13){
+		    	send_request_after_press_enter_key(event);
+		    }
+			},
 			indentUnit: 4
 		});
-		myCodeMirror.on('keypress', function(obj, event){
-			if(event.keyCode == 13 ){
-				var me = obj,
-						last_line = obj.lastLine();
-				if(me.getLine(last_line - 1) == 'clear'){
-					clear_text_area(me);
-				}else{
-					$.ajax({
-						type: "POST",
-			      url: "/excute_code.json",
-			      data: { code: me.doc.getValue() },
-			      dataType: "json",
-			      beforeSend: function(){
-			      	console.log("before send data");
-			      },
-			      success: function(data) {
-			        me.setLine(last_line, data.result.toString() + "\n")
-			      },
-						error: function(error){
-							console.log(error);
-						}
-					})
-				}
+		
+		var send_request_after_press_enter_key = function(event){
+			var me = myCodeMirror,
+					last_line = me.lastLine() + 1;
+			if(me.getLine(last_line - 1) == 'clear'){
+				clear_text_area(me);
+			}else{
+				$.ajax({
+					type: "POST",
+		      url: "/excute_code.json",
+		      data: { code: me.doc.getValue() },
+		      dataType: "json",
+		      beforeSend: function(){
+		      	console.log("before send data");
+		      },
+		      success: function(data) {
+		        me.setLine(last_line, data.result.toString() + "\n")
+		      },
+					error: function(error){
+						console.log(error);
+					}
+				})
 			}
-		})
+		}
 	});
