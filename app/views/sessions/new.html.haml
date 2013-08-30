@@ -11,6 +11,6 @@
         = content_tag :div, msg, :id => "flash_#{name}"
 %h1 Log in
 = simple_form_for sessions_path(@user) do |f|
-  = f.input :email, labe: "Email"
+  = f.input :name, label: "Name/Email"
   = f.input :password, label: "Password"
   = f.button :submit, "Log In", class: "btn btn-primary"

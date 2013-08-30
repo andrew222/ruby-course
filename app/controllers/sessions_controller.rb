@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 	end
 
 	def create
-		user = User.authenticate(params["/sessions"][:email], params["/sessions"][:password])
+		user = User.authenticate(params["/sessions"][:name], params["/sessions"][:password])
 		if user
 			session[:user_id] = user.id
 			user.update_attribute("login_count", user.login_count+1 )
