@@ -5,3 +5,28 @@
     = @course.name
   .code_input
     = render "code_input"
+:javascript
+  $(document).ready(function(){
+    var tour = {
+      id: "tour_of_course",
+      steps: [
+        {
+          title: "The Content Of This Course",
+          content: "Please follow the commands in it.",
+          target: $(".sidebar-nav")[0],
+          placement: "right"
+        },
+        {
+          title: "Code Input Box",
+          content: "You can enter the commands left in it.Press 'enter' key to see the result.",
+          target: $(".code_input")[0],
+          placement: "left"
+        }
+      ]
+    };
+
+    // Start the tour!
+    if("#{current_user.login_count}" == "1"){
+      hopscotch.startTour(tour);
+    }
+  })

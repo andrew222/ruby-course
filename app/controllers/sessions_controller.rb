@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
 		user = User.authenticate(params["/sessions"][:email], params["/sessions"][:password])
 		if user
 			session[:user_id] = user.id
+			user.update_attribute("login_count", user.login_count+1 )
 			redirect_to welcome_url
 		else
 			flash.alert = 'Invalid email or password'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130828105630) do
+ActiveRecord::Schema.define(:version => 20130830074822) do
 
 # Could not dump table "codes" because of following StandardError
 #   Unknown type 'bollean' for column 'finished'
@@ -28,8 +28,9 @@ ActiveRecord::Schema.define(:version => 20130828105630) do
     t.string   "email"
     t.string   "password_hash"
     t.string   "password_salt"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.integer  "login_count",   :default => 0
   end
 
 end
