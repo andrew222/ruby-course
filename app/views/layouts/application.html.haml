@@ -26,7 +26,7 @@
     / Size should be 32 x 32 pixels
     = javascript_include_tag "application"
   %body
-    .navbar
+    .navbar.navbar-inverse.navbar-fixed-top
       .navbar-inner
         .container
           %ul.nav.nav-pills
@@ -44,5 +44,5 @@
                 = link_to "log in", log_in_path
           - if current_user
             .user_info 
-    .container
+    .container.main_container
       = render partial: 'shared/main_container'
