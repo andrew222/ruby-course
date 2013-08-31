@@ -4,7 +4,7 @@
     = display_error_msg(@user)
 %h1 Sign Up
 = simple_form_for @user do |f|
-  = f.input :name, label: "Name", error: false
+  = f.input :name, label: "Name", error: false, autofocus: true
   = f.input :email, label: "Email", placeholder: "user@domain.com", error: false
   = f.input :password, label: "Password", error: false
   = f.input :password_confirmation, label: "Password Confirmation", error: false

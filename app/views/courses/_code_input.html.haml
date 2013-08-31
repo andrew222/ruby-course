@@ -2,7 +2,6 @@
 	= text_area :code, :text
 
 :javascript
-	
 	$(document).ready(function(){
 		var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('code_text'), {
 			mode: "text/x-ruby",
@@ -14,26 +13,37 @@
 			onKeyEvent: function(editor, event){
 		    var event_type = event.type;
 		    if(event_type == "keydown"){
-		    	
-		    }
-		    if(event.type == "keydown"){
-		    	if(event.keyCode == 40){
-		    		alert("down-arrow pressed")
-		    	}
-		    	else if(event.keyCode == 38){
-		    		alert("up-arrow pressed")
-		    	}else if(event.keyCode == 13){
-		    		send_request_after_press_enter_key(event);
+		    	if(event.keyCode == 13){
+		    		send_request_after_press_enter_key(editor);
 		    	}
 		    }
 			},
+			extraKeys: {
+				Up: function(cm){
+					// TODO display previous input history
+					alert('up-arrow pressed')
+				},
+				Down: function(cm){
+					// TODO display next input history
+				},
+				"Alt-L": function(cm){
+					clear_text_area(cm);
+				},
+				"Ctrl-Z": function(cm){
+					cm.doc.undo()
+				},
+				"Ctrl-Shift-Z": function(cm){
+					cm.doc.redo()
+				}
+			},
 			indentUnit: 4
 		});
-		
-		var send_request_after_press_enter_key = function(event){
-			var me = myCodeMirror,
-					last_line = me.lastLine() + 1;
-			if(me.getLine(last_line - 1) == 'clear'){
+		var send_request_after_press_enter_key = function(editor){
+			var me = editor,
+					last_line = me.lastLine() + 1,
+					last_line_code;
+			last_line_code = me.getLine(last_line - 1);
+			if(last_line_code == 'clear'){
 				clear_text_area(me);
 			}else{
 				$.ajax({
@@ -52,5 +62,9 @@
 					}
 				})
 			}
+		}
+
+		var previous_line_code = function(line_numb){
+
 		}
 	});

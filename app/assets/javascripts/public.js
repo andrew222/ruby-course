@@ -7,3 +7,27 @@ function clear_text_area(cm){
 		})
 	}
 }
+
+function create_cookie(name, value, days){
+	var date, expires;
+	if(days){
+		date = new Date();
+		date.setTime(date.getTime() + (days*24*60*60*1000));
+		expires = "; expires=" + date.toGMTString();
+	}else{
+		expires = ""
+	}
+	document.cookie = name +"=" + value + expires + "; path=/"
+}
+
+function read_cookie(name){
+	var cookie, cookies;
+	cookies = document.cookie.split(";");
+	for(var i = 0; i < cookies.length; i++ ){
+		cookie = cookies[i].trim().split("=");
+		if(cookie[0] == name){
+			return cookie[1];
+		}
+	}
+	return "";
+}
