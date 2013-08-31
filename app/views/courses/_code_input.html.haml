@@ -6,6 +6,7 @@
 		var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('code_text'), {
 			mode: "text/x-ruby",
 			theme: "rubyblue",
+			value: "",
 			tabMode: "indent",
 			lineNumbers: true,
 			matchBrackets: true,
@@ -20,6 +21,7 @@
 			},
 			extraKeys: {
 				Up: function(cm){
+					window.cm = cm;
 					// TODO display previous input history
 					alert('up-arrow pressed')
 				},
@@ -27,7 +29,7 @@
 					// TODO display next input history
 				},
 				"Alt-L": function(cm){
-					clear_text_area(cm);
+					cm.setValue("");
 				},
 				"Ctrl-Z": function(cm){
 					cm.doc.undo()
@@ -40,28 +42,22 @@
 		});
 		var send_request_after_press_enter_key = function(editor){
 			var me = editor,
-					last_line = me.lastLine() + 1,
-					last_line_code;
-			last_line_code = me.getLine(last_line - 1);
-			if(last_line_code == 'clear'){
-				clear_text_area(me);
-			}else{
-				$.ajax({
-					type: "POST",
-		      url: "/excute_code.json",
-		      data: { code: me.doc.getValue() },
-		      dataType: "json",
-		      beforeSend: function(){
-		      	console.log("before send data");
-		      },
-		      success: function(data) {
-		        me.setLine(last_line, data.result.toString() + "\n")
-		      },
-					error: function(error){
-						console.log(error);
-					}
-				})
-			}
+					last_line = me.lastLine() + 1;
+			$.ajax({
+				type: "POST",
+	      url: "/excute_code.json",
+	      data: { code: me.doc.getValue() },
+	      dataType: "json",
+	      beforeSend: function(){
+	      	console.log("before send data");
+	      },
+	      success: function(data) {
+	        me.setLine(last_line, data.result.toString() + "\n")
+	      },
+				error: function(error){
+					console.log(error);
+				}
+			})
 		}
 
 		var previous_line_code = function(line_numb){
