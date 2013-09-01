@@ -28,7 +28,7 @@ $(document).ready(function(){
 	  steps: [
 	    {
 	      title: "Shortcut Keys",
-	      content: "Alt-L: Clear the textarea<br />Ctrl-Z: undo<br />Ctrl-Shift-Z: redo",
+	      content: "Alt-L: Clear the textarea<br />Ctrl-Z: Undo<br />Ctrl-Shift-Z: Redo<br />Arrow Down: Next command<br />Arrow UP: Previous command",
 	      target: $(".shortcut_keys_tips")[0],
 	      placement: "top",
 	      xOffset: "-270",

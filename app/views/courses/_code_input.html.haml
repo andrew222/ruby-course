@@ -3,6 +3,9 @@
 
 :javascript
 	$(document).ready(function(){
+		var code_input_line_count,
+				pre_code,
+				next_code;
 		var code_input_cm = CodeMirror.fromTextArea(document.getElementById('code_text'), {
 			mode: "text/x-ruby",
 			theme: "rubyblue",
@@ -15,19 +18,19 @@
 		    var event_type = event.type;
 		    if(event_type == "keydown"){
 		    	if(event.keyCode == 13){
+		    		code_input_line_count = editor.lineCount() - 1;
 		    		send_request_after_press_enter_key(editor);
 		    	}
 		    }
 			},
 			extraKeys: {
 				Up: function(cm){
-					window.cm = cm;
-					// TODO display previous input history
-					alert('up-arrow pressed');
-					previous_line_code();
+					pre_code = previous_line_code(cm);
+					cm.setLine(cm.lineCount() - 1, pre_code);
 				},
 				Down: function(cm){
-					// TODO display next input history
+					next_code = next_line_code(cm)
+					cm.setLine(cm.lineCount() - 1, next_code);
 				},
 				"Alt-L": function(cm){
 					cm.setValue("");
@@ -61,8 +64,24 @@
 			})
 		}
 
-		var previous_line_code = function(line_numb){
+		var previous_line_code = function(cm){
+			var history_code = code_input_cm.getLine(code_input_line_count);
+			if(code_input_line_count > 0){
+				code_input_line_count = code_input_line_count-1;
+			}
+			return history_code;
+		}
 
+		var next_line_code = function(cm){
+			var history_code;
+			if(code_input_line_count < cm.lineCount() - 1){
+				code_input_line_count = code_input_line_count + 1;
+				history_code = cm.getLine(code_input_line_count);
+			}
+			if(code_input_line_count >= cm.lineCount() - 1){
+				history_code = "";
+			}
+			return history_code;
 		}
 
 		var result_cm = CodeMirror.fromTextArea(document.getElementById('result_text'),{
