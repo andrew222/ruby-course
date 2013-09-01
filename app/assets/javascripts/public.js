@@ -21,3 +21,22 @@ function read_cookie(name){
 	}
 	return "";
 }
+
+$(document).ready(function(){
+	var popup_options = {
+	  id: "shortcut_keys_tips",
+	  steps: [
+	    {
+	      title: "Shortcut Keys",
+	      content: "Alt-L: Clear the textarea<br />Ctrl-Z: undo<br />Ctrl-Shift-Z: redo",
+	      target: $(".shortcut_keys_tips")[0],
+	      placement: "top",
+	      xOffset: "-270",
+	      arrowOffset: "270"
+	    }
+	  ]
+	};
+	$(".shortcut_keys_tips").bind("click", function(){
+		hopscotch.startTour(popup_options);
+	})
+})
