@@ -1,10 +1,14 @@
 .span3
   = render partial: "tip_content"
-.span8
+.span5
   %h2
     = @course.name
   .code_input
     = render "code_input"
+.span3
+  %h2 Result
+  .result
+    = text_area :result, :text
 :javascript
   $(document).ready(function(){
     var tour = {

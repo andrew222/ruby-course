@@ -3,7 +3,7 @@
 
 :javascript
 	$(document).ready(function(){
-		var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('code_text'), {
+		var code_input_cm = CodeMirror.fromTextArea(document.getElementById('code_text'), {
 			mode: "text/x-ruby",
 			theme: "rubyblue",
 			value: "",
@@ -23,7 +23,8 @@
 				Up: function(cm){
 					window.cm = cm;
 					// TODO display previous input history
-					alert('up-arrow pressed')
+					alert('up-arrow pressed');
+					previous_line_code();
 				},
 				Down: function(cm){
 					// TODO display next input history
@@ -42,7 +43,7 @@
 		});
 		var send_request_after_press_enter_key = function(editor){
 			var me = editor,
-					last_line = me.lastLine() + 1;
+					last_line = result_cm.lastLine();
 			$.ajax({
 				type: "POST",
 	      url: "/excute_code.json",
@@ -52,7 +53,7 @@
 	      	console.log("before send data");
 	      },
 	      success: function(data) {
-	        me.setLine(last_line, data.result.toString() + "\n")
+	      	result_cm.setLine(last_line, data.result.toString() + "\n")
 	      },
 				error: function(error){
 					console.log(error);
@@ -63,4 +64,11 @@
 		var previous_line_code = function(line_numb){
 
 		}
+
+		var result_cm = CodeMirror.fromTextArea(document.getElementById('result_text'),{
+			mode: "text/x-ruby",
+			theme: "rubyblue",
+			matchBrackets: true,
+			readOnly: true
+		});
 	});
